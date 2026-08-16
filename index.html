@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no,
+      viewport-fit=cover">
+
+<meta name="theme-color"
+      content="#09090d">
+
+<meta name="apple-mobile-web-app-capable"
+      content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent">
+
+<meta name="apple-mobile-web-app-title"
+      content="Kegel Coach">
+
+<title>Kegel Coach</title>
+
+
+<style>
+
+/* =========================================
+   BASIC
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    background: #09090d;
+}
+
+body {
+
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    min-height: 100%;
+
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            #3d254c 0%,
+            #20182b 30%,
+            #111118 65%,
+            #07070a 100%
+        );
+
+    color: white;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Helvetica Neue",
+        sans-serif;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   APP
+========================================= */
+
+.app {
+
+    width: 100%;
+
+    min-height: 100dvh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding-top:
+        calc(
+            env(safe-area-inset-top)
+            + 15px
+        );
+
+    padding-right: 20px;
+
+    padding-bottom:
+        calc(
+            env(safe-area-inset-bottom)
+            + 15px
+        );
+
+    padding-left: 20px;
+}
+
+
+.content {
+
+    width: 100%;
+
+    max-width: 500px;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.icon {
+
+    font-size: 48px;
+
+    line-height: 1;
+
+    margin-bottom: 15px;
+
+    animation:
+        breathe 4s ease-in-out infinite;
+}
+
+
+@keyframes breathe {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+
+.title {
+
+    margin: 0;
+
+    font-size: 36px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+.subtitle {
+
+    margin-top: 7px;
+
+    color:
+        rgba(255,255,255,0.48);
+
+    font-size: 14px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   TODAY CARD
+========================================= */
+
+.today-card {
+
+    margin-top: 28px;
+
+    padding: 22px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.09),
+            rgba(255,255,255,0.035)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,0.09);
+
+    box-shadow:
+        0 25px 60px
+        rgba(0,0,0,0.30);
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+}
+
+
+.today-label {
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color:
+        rgba(255,255,255,0.40);
+}
+
+
+.workout-name {
+
+    margin-top: 10px;
+
+    font-size: 25px;
+
+    font-weight: 650;
+}
+
+
+.workout-description {
+
+    margin-top: 7px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    color:
+        rgba(255,255,255,0.52);
+}
+
+
+.duration {
+
+    margin-top: 14px;
+
+    font-size: 13px;
+
+    color:
+        rgba(255,255,255,0.42);
+}
+
+
+/* =========================================
+   START BUTTON
+========================================= */
+
+.start-button {
+
+    width: 100%;
+
+    margin-top: 18px;
+
+    padding: 17px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    background: white;
+
+    color: #111;
+
+    font-size: 16px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 30px
+        rgba(0,0,0,0.25);
+
+    transition:
+        transform 0.15s ease;
+}
+
+
+.start-button:active {
+
+    transform:
+        scale(0.97);
+}
+
+
+/* =========================================
+   WORKOUT SCREEN
+========================================= */
+
+.workout-screen {
+
+    display: none;
+
+    width: 100%;
+
+    text-align: center;
+}
+
+
+.phase-label {
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color:
+        rgba(255,255,255,0.42);
+}
+
+
+.exercise-name {
+
+    margin-top: 15px;
+
+    font-size: 30px;
+
+    font-weight: 700;
+}
+
+
+.instruction {
+
+    margin-top: 10px;
+
+    min-height: 45px;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    color:
+        rgba(255,255,255,0.60);
+}
+
+
+/* =========================================
+   TIMER
+========================================= */
+
+.timer-circle {
+
+    width: 220px;
+
+    height: 220px;
+
+    margin:
+        30px
+        auto
+        25px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.09),
+            rgba(255,255,255,0.025)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,0.10);
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,0.35),
+
+        inset 0 0 40px
+        rgba(255,255,255,0.025);
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.timer-circle.active {
+
+    transform:
+        scale(1.025);
+}
+
+
+.timer {
+
+    font-size: 72px;
+
+    font-weight: 650;
+
+    line-height: 1;
+
+    font-variant-numeric:
+        tabular-nums;
+}
+
+
+.timer-small {
+
+    margin-top: 9px;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color:
+        rgba(255,255,255,0.35);
+}
+
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+.progress-text {
+
+    font-size: 12px;
+
+    color:
+        rgba(255,255,255,0.40);
+}
+
+
+.progress-bar {
+
+    width: 100%;
+
+    height: 5px;
+
+    margin-top: 10px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    overflow: hidden;
+}
+
+
+.progress-fill {
+
+    height: 100%;
+
+    width: 0%;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.75);
+
+    transition:
+        width 0.3s linear;
+}
+
+
+/* =========================================
+   WORKOUT CONTROLS
+========================================= */
+
+.controls {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+
+.control-button {
+
+    flex: 1;
+
+    padding: 14px;
+
+    border: 1px solid
+        rgba(255,255,255,0.10);
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,0.06);
+
+    color: white;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+.control-button:active {
+
+    transform:
+        scale(0.97);
+}
+
+
+/* =========================================
+   FINISHED SCREEN
+========================================= */
+
+.finished {
+
+    display: none;
+
+    text-align: center;
+}
+
+
+.finished-heart {
+
+    font-size: 65px;
+
+    margin-bottom: 15px;
+}
+
+
+.finished-title {
+
+    font-size: 31px;
+
+    font-weight: 700;
+}
+
+
+.finished-text {
+
+    margin-top: 10px;
+
+    color:
+        rgba(255,255,255,0.50);
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 370px) {
+
+    .title {
+        font-size: 31px;
+    }
+
+    .timer-circle {
+
+        width: 190px;
+
+        height: 190px;
+    }
+
+    .timer {
+        font-size: 62px;
+    }
+
+    .exercise-name {
+        font-size: 26px;
+    }
+}
+
+
+/* =========================================
+   LANDSCAPE
+========================================= */
+
+@media (orientation: landscape) {
+
+    .app {
+
+        align-items: flex-start;
+
+        overflow-y: auto;
+
+        height: auto;
+
+        min-height: 100dvh;
+    }
+
+    .content {
+
+        margin-top: 25px;
+
+        margin-bottom: 25px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<div class="content">
+
+
+<!-- ======================================
+     HOME SCREEN
+======================================= -->
+
+<div id="homeScreen">
+
+
+    <div class="icon">
+        🧘
+    </div>
+
+
+    <h1 class="title">
+        Kegel Coach
+    </h1>
+
+
+    <div class="subtitle">
+        Pelvic floor training
+    </div>
+
+
+    <div class="today-card">
+
+
+        <div class="today-label">
+            Today's workout
+        </div>
+
+
+        <div
+            class="workout-name"
+            id="todayName">
+
+            Loading...
+
+        </div>
+
+
+        <div
+            class="workout-description"
+            id="todayDescription">
+
+            Loading...
+
+        </div>
+
+
+        <div
+            class="duration"
+            id="todayDuration">
+
+            Loading...
+
+        </div>
+
+
+        <button
+            class="start-button"
+            onclick="startWorkout()">
+
+            Start Today's Workout
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+<!-- ======================================
+     WORKOUT SCREEN
+======================================= -->
+
+<div
+    class="workout-screen"
+    id="workoutScreen">
+
+
+    <div
+        class="phase-label"
+        id="phaseLabel">
+
+        GET READY
+
+    </div>
+
+
+    <div
+        class="exercise-name"
+        id="exerciseName">
+
+        Get Ready
+
+    </div>
+
+
+    <div
+        class="instruction"
+        id="instruction">
+
+        Relax your body and breathe normally.
+
+    </div>
+
+
+    <div
+        class="timer-circle"
+        id="timerCircle">
+
+
+        <div
+            class="timer"
+            id="timer">
+
+            5
+
+        </div>
+
+
+        <div class="timer-small">
+            seconds
+        </div>
+
+
+    </div>
+
+
+    <div
+        class="progress-text"
+        id="progressText">
+
+        0 / 0
+
+    </div>
+
+
+    <div class="progress-bar">
+
+        <div
+            class="progress-fill"
+            id="progressFill">
+        </div>
+
+    </div>
+
+
+    <div class="controls">
+
+
+        <button
+            class="control-button"
+            onclick="togglePause()"
+            id="pauseButton">
+
+            Pause
+
+        </button>
+
+
+        <button
+            class="control-button"
+            onclick="stopWorkout()">
+
+            Stop
+
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- ======================================
+     FINISHED
+======================================= -->
+
+<div
+    class="finished"
+    id="finishedScreen">
+
+
+    <div class="finished-heart">
+        ❤️
+    </div>
+
+
+    <div class="finished-title">
+        Workout complete
+    </div>
+
+
+    <div class="finished-text">
+        Nice work.<br>
+        Quality contractions and full relaxation matter more than rushing.
+    </div>
+
+
+    <button
+        class="start-button"
+        onclick="showHome()">
+
+        Back to Home
+
+    </button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================
+   WORKOUT DATABASE
+
+   Every workout is under 5 minutes.
+
+   "contract" = pelvic floor squeeze/lift
+   "relax"    = completely release
+   "inhale"   = gentle pelvic floor release
+   "exhale"   = slow return to neutral
+
+   Reverse-kegel style phases are deliberately
+   gentle: no bearing down or straining.
+========================================= */
+
+
+const workouts = [
+
+    /* MONDAY */
+
+    {
+        name: "Foundation",
+        description:
+            "Slow controlled contractions with full relaxation.",
+
+        phases: [
+
+            {
+                type: "breathe",
+                name: "Settle In",
+                instruction:
+                    "Breathe slowly. Let your belly and ribs expand.",
+                seconds: 30
+            },
+
+            {
+                type: "contract",
+                name: "Contract & Lift",
+                instruction:
+                    "Gently squeeze and lift the pelvic floor. Keep breathing.",
+                seconds: 5,
+                repeats: 5,
+                rest: 5
+            },
+
+            {
+                type: "quick",
+                name: "Quick Contraction",
+                instruction:
+                    "Quick squeeze and lift, then completely relax.",
+                seconds: 1,
+                repeats: 8,
+                rest: 2
+            },
+
+            {
+                type: "reverse",
+                name: "Pelvic Floor Release",
+                instruction:
+                    "Inhale and gently allow the pelvic floor to soften and release.",
+                seconds: 5,
+                repeats: 3,
+                rest: 3
+            }
+
+        ]
+    },
+
+
+    /* TUESDAY */
+
+    {
+        name: "Endurance",
+        description:
+            "Build controlled holding ability without forcing it.",
+
+        phases: [
+
+            {
+                type: "breathe",
+                name: "Relax",
+                instruction:
+                    "Breathe normally and release any tension in your abdomen.",
+                seconds: 30
+            },
+
+            {
+                type: "contract",
+                name: "Long Hold",
+                instruction:
+                    "Squeeze and lift gently. Keep breathing normally.",
+                seconds: 7,
+                repeats: 4,
+                rest: 7
+            },
+
+            {
+                type: "quick",
+                name: "Quick Contractions",
+                instruction:
+                    "Squeeze quickly, then let the muscles fully relax.",
+                seconds: 1,
+                repeats: 10,
+                rest: 2
+            },
+
+            {
+                type: "reverse",
+                name: "Release",
+                instruction:
+                    "Inhale gently and imagine the pelvic floor dropping and widening.",
+                seconds: 5,
+                repeats: 3,
+                rest: 3
+            }
+
+        ]
+    },
+
+
+    /* WEDNESDAY */
+
+    {
+        name: "Quick Response",
+        description:
+            "Short contractions for speed and coordination.",
+
+        phases: [
+
+            {
+                type: "breathe",
+                name: "Warm Up",
+                instruction:
+                    "Take slow, comfortable breaths and relax.",
+                seconds: 30
+            },
+
+            {
+                type: "quick",
+                name: "Fast Squeeze",
+                instruction:
+                    "Quickly squeeze and lift, then completely let go.",
+                seconds: 1,
+                repeats: 10,
+                rest: 2
+            },
+
+            {
+                type: "quick",
+                name: "Fast Squeeze",
+                instruction:
+                    "Stay relaxed everywhere except the pelvic floor.",
+                seconds: 1,
+                repeats: 10,
+                rest: 2
+            },
+
+            {
+                type: "contract",
+                name: "Controlled Hold",
+                instruction:
+                    "Gentle squeeze and lift. Keep breathing.",
+                seconds: 5,
+                repeats: 4,
+                rest: 5
+            },
+
+            {
+                type: "reverse",
+                name: "Release",
+                instruction:
+                    "Slow inhale. Let the pelvic floor soften completely.",
+                seconds: 5,
+                repeats: 3,
+                rest: 3
+            }
+
+        ]
+    },
+
+
+    /* THURSDAY */
+
+    {
+        name: "Recovery & Release",
+        description:
+            "A lighter session focused on relaxation and breathing.",
+
+        phases: [
+
+            {
+                type: "reverse",
+                name: "Deep Inhale",
+                instruction:
+                    "Inhale slowly and allow the pelvic floor to gently release.",
+                seconds: 6,
+                repeats: 5,
+                rest: 4
+            },
+
+            {
+                type: "breathe",
+                name: "Easy Breathing",
+                instruction:
+                    "Relax your belly, thighs and buttocks. Breathe naturally.",
+                seconds: 40
+            },
+
+            {
+                type: "contract",
+                name: "Gentle Lift",
+                instruction:
+                    "Use only a comfortable contraction. Do not squeeze maximally.",
+                seconds: 4,
+                repeats: 5,
+                rest: 6
+            },
+
+            {
+                type: "reverse",
+                name: "Final Release",
+                instruction:
+                    "Slow inhale and gentle pelvic-floor release.",
+                seconds: 8,
+                repeats: 3,
+                rest: 4
+            }
+
+        ]
+    },
+
+
+    /* FRIDAY */
+
+    {
+        name: "Strength & Control",
+        description:
+            "Moderate holds followed by quick contractions.",
+
+        phases: [
+
+            {
+                type: "breathe",
+                name: "Prepare",
+                instruction:
+                    "Relax your whole body and breathe comfortably.",
+                seconds: 30
+            },
+
+            {
+                type: "contract",
+                name: "Controlled Hold",
+                instruction:
+                    "Squeeze and lift without holding your breath.",
+                seconds: 8,
+                repeats: 4,
+                rest: 8
+            },
+
+            {
+                type: "quick",
+                name: "Quick Contractions",
+                instruction:
+                    "Short, clean squeeze. Full relaxation after every rep.",
+                seconds: 1,
+                repeats: 10,
+                rest: 2
+            },
+
+            {
+                type: "reverse",
+                name: "Relax",
+                instruction:
+                    "Inhale and allow the pelvic floor to release.",
+                seconds: 6,
+                repeats: 3,
+                rest: 4
+            }
+
+        ]
+    },
+
+
+    /* SATURDAY */
+
+    {
+        name: "Mixed Session",
+        description:
+            "A balanced combination of endurance, speed and release.",
+
+        phases: [
+
+            {
+                type: "breathe",
+                name: "Warm Up",
+                instruction:
+                    "Slow breathing. Relax your abdomen and buttocks.",
+                seconds: 30
+            },
+
+            {
+                type: "contract",
+                name: "Hold",
+                instruction:
+                    "Gently squeeze and lift while breathing normally.",
+                seconds: 6,
+                repeats: 5,
+                rest: 6
+            },
+
+            {
+                type: "quick",
+                name: "Quick Lifts",
+                instruction:
+                    "Fast squeeze, immediate release.",
+                seconds: 1,
+                repeats: 8,
+                rest: 2
+            },
+
+            {
+                type: "reverse",
+                name: "Release",
+                instruction:
+                    "Inhale and gently soften the pelvic floor.",
+                seconds: 6,
+                repeats: 4,
+                rest: 4
+            }
+
+        ]
+    },
+
+
+    /* SUNDAY */
+
+    {
+        name: "Reset",
+        description:
+            "A gentle recovery session with breathing and light contractions.",
+
+        phases: [
+
+            {
+                type: "reverse",
+                name: "Relax & Breathe",
+                instruction:
+                    "Inhale gently and allow the pelvic floor to release.",
+                seconds: 8,
+                repeats: 5,
+                rest: 4
+            },
+
+            {
+                type: "breathe",
+                name: "Rest",
+                instruction:
+                    "Take slow, comfortable breaths.",
+                seconds: 40
+            },
+
+            {
+                type: "contract",
+                name: "Light Lift",
+                instruction:
+                    "Gently contract. No maximum effort.",
+                seconds: 4,
+                repeats: 5,
+                rest: 6
+            },
+
+            {
+                type: "reverse",
+                name: "Final Relaxation",
+                instruction:
+                    "Let everything soften and breathe naturally.",
+                seconds: 10,
+                repeats: 3,
+                rest: 5
+            }
+
+        ]
+    }
+
+];
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let currentWorkout = null;
+
+let currentPhaseIndex = 0;
+
+let currentRepeat = 1;
+
+let currentSeconds = 0;
+
+let timerInterval = null;
+
+let paused = false;
+
+let totalWorkoutSeconds = 0;
+
+let elapsedWorkoutSeconds = 0;
+
+
+/* =========================================
+   GET TODAY'S WORKOUT
+========================================= */
+
+function getTodayWorkout() {
+
+    /*
+     * JavaScript:
+     *
+     * Sunday = 0
+     * Monday = 1
+     * ...
+     * Saturday = 6
+     *
+     * Our array starts Monday,
+     * so convert it.
+     */
+
+    const day =
+        new Date().getDay();
+
+    const index =
+        day === 0
+        ? 6
+        : day - 1;
+
+    return workouts[index];
+}
+
+
+/* =========================================
+   CALCULATE TOTAL WORKOUT LENGTH
+========================================= */
+
+function calculateWorkoutLength(workout) {
+
+    let total = 0;
+
+    workout.phases.forEach(
+        phase => {
+
+            if (phase.repeats) {
+
+                total +=
+                    phase.repeats
+                    *
+                    (
+                        phase.seconds
+                        +
+                        phase.rest
+                    );
+
+            } else {
+
+                total +=
+                    phase.seconds;
+            }
+
+        }
+    );
+
+    return total;
+}
+
+
+/* =========================================
+   SHOW TODAY
+========================================= */
+
+function showToday() {
+
+    const workout =
+        getTodayWorkout();
+
+
+    document.getElementById(
+        "todayName"
+    ).textContent =
+        workout.name;
+
+
+    document.getElementById(
+        "todayDescription"
+    ).textContent =
+        workout.description;
+
+
+    const seconds =
+        calculateWorkoutLength(
+            workout
+        );
+
+
+    const minutes =
+        Math.floor(
+            seconds / 60
+        );
+
+
+    const remaining =
+        seconds % 60;
+
+
+    document.getElementById(
+        "todayDuration"
+    ).textContent =
+
+        "About "
+        +
+        minutes
+        +
+        ":"
+        +
+        String(
+            remaining
+        ).padStart(2, "0")
+        +
+        " minutes";
+
+}
+
+
+/* =========================================
+   START WORKOUT
+========================================= */
+
+function startWorkout() {
+
+    currentWorkout =
+        getTodayWorkout();
+
+    currentPhaseIndex = 0;
+
+    currentRepeat = 1;
+
+    elapsedWorkoutSeconds = 0;
+
+    totalWorkoutSeconds =
+        calculateWorkoutLength(
+            currentWorkout
+        );
+
+    paused = false;
+
+    document.getElementById(
+        "homeScreen"
+    ).style.display = "none";
+
+    document.getElementById(
+        "finishedScreen"
+    ).style.display = "none";
+
+    document.getElementById(
+        "workoutScreen"
+    ).style.display = "block";
+
+    document.getElementById(
+        "pauseButton"
+    ).textContent = "Pause";
+
+
+    loadPhase();
+
+}
+
+
+/* =========================================
+   LOAD PHASE
+========================================= */
+
+function loadPhase() {
+
+    const phase =
+        currentWorkout.phases[
+            currentPhaseIndex
+        ];
+
+
+    currentSeconds =
+        phase.seconds;
+
+
+    updatePhaseDisplay();
+
+}
+
+
+/* =========================================
+   PHASE DISPLAY
+========================================= */
+
+function updatePhaseDisplay() {
+
+    const phase =
+        currentWorkout.phases[
+            currentPhaseIndex
+        ];
+
+
+    let label =
+        "EXERCISE";
+
+
+    if (
+        phase.type === "reverse"
+    ) {
+
+        label =
+            "RELEASE";
+
+    } else if (
+        phase.type === "contract"
+    ) {
+
+        label =
+            "CONTRACT";
+
+    } else if (
+        phase.type === "quick"
+    ) {
+
+        label =
+            "QUICK";
+
+    } else if (
+        phase.type === "breathe"
+    ) {
+
+        label =
+            "BREATHING";
+    }
+
+
+    document.getElementById(
+        "phaseLabel"
+    ).textContent =
+        label;
+
+
+    document.getElementById(
+        "exerciseName"
+    ).textContent =
+        phase.name;
+
+
+    document.getElementById(
+        "instruction"
+    ).textContent =
+        phase.instruction;
+
+
+    document.getElementById(
+        "timer"
+    ).textContent =
+        currentSeconds;
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+
+        currentPhaseIndex
+        +
+        " / "
+        +
+        currentWorkout.phases.length;
+
+
+    updateProgress();
+
+}
+
+
+/* =========================================
+   TIMER
+========================================= */
+
+function runTimer() {
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    timerInterval =
+        setInterval(
+            function() {
+
+
+                if (paused) {
+                    return;
+                }
+
+
+                currentSeconds--;
+
+                elapsedWorkoutSeconds++;
+
+
+                document.getElementById(
+                    "timer"
+                ).textContent =
+                    currentSeconds;
+
+
+                updateProgress();
+
+
+                animateTimer();
+
+
+                if (
+                    currentSeconds <= 0
+                ) {
+
+                    advancePhase();
+
+                }
+
+
+            },
+            1000
+        );
+}
+
+
+/* =========================================
+   ADVANCE PHASE
+========================================= */
+
+function advancePhase() {
+
+    const phase =
+        currentWorkout.phases[
+            currentPhaseIndex
+        ];
+
+
+    /*
+     * Repeated exercise:
+     * after the contraction,
+     * run the relaxation timer.
+     */
+
+    if (
+        phase.repeats
+        &&
+        currentRepeat < phase.repeats
+    ) {
+
+        currentRepeat++;
+
+        startRest(
+            phase
+        );
+
+        return;
+    }
+
+
+    /*
+     * Move to next phase.
+     */
+
+    currentPhaseIndex++;
+
+    currentRepeat = 1;
+
+
+    if (
+        currentPhaseIndex
+        >=
+        currentWorkout.phases.length
+    ) {
+
+        finishWorkout();
+
+        return;
+    }
+
+
+    loadPhase();
+
+}
+
+
+/* =========================================
+   REST BETWEEN REPETITIONS
+========================================= */
+
+function startRest(phase) {
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    let restSeconds =
+        phase.rest;
+
+
+    document.getElementById(
+        "phaseLabel"
+    ).textContent =
+        "RELAX";
+
+
+    document.getElementById(
+        "exerciseName"
+    ).textContent =
+        "Fully Release";
+
+
+    document.getElementById(
+        "instruction"
+    ).textContent =
+        "Let the pelvic floor completely relax. Keep breathing normally.";
+
+
+    document.getElementById(
+        "timer"
+    ).textContent =
+        restSeconds;
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+
+        currentRepeat
+        +
+        " / "
+        +
+        phase.repeats;
+
+
+    timerInterval =
+        setInterval(
+            function() {
+
+
+                if (paused) {
+                    return;
+                }
+
+
+                restSeconds--;
+
+                elapsedWorkoutSeconds++;
+
+
+                document.getElementById(
+                    "timer"
+                ).textContent =
+                    restSeconds;
+
+
+                if (
+                    restSeconds <= 0
+                ) {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+                    loadPhase();
+
+                    runTimer();
+
+                }
+
+            },
+            1000
+        );
+}
+
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+function updateProgress() {
+
+    const percent =
+        Math.min(
+            100,
+            (
+                elapsedWorkoutSeconds
+                /
+                totalWorkoutSeconds
+            )
+            *
+            100
+        );
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percent
+        +
+        "%";
+}
+
+
+/* =========================================
+   TIMER ANIMATION
+========================================= */
+
+function animateTimer() {
+
+    const circle =
+        document.getElementById(
+            "timerCircle"
+        );
+
+
+    circle.classList.add(
+        "active"
+    );
+
+
+    setTimeout(
+        function() {
+
+            circle.classList.remove(
+                "active"
+            );
+
+        },
+        180
+    );
+}
+
+
+/* =========================================
+   PAUSE
+========================================= */
+
+function togglePause() {
+
+    paused =
+        !paused;
+
+
+    document.getElementById(
+        "pauseButton"
+    ).textContent =
+        paused
+        ? "Resume"
+        : "Pause";
+}
+
+
+/* =========================================
+   STOP
+========================================= */
+
+function stopWorkout() {
+
+    clearInterval(
+        timerInterval
+    );
+
+    showHome();
+}
+
+
+/* =========================================
+   HOME
+========================================= */
+
+function showHome() {
+
+    clearInterval(
+        timerInterval
+    );
+
+    document.getElementById(
+        "workoutScreen"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "finishedScreen"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "homeScreen"
+    ).style.display =
+        "block";
+
+    showToday();
+}
+
+
+/* =========================================
+   FINISHED
+========================================= */
+
+function finishWorkout() {
+
+    clearInterval(
+        timerInterval
+    );
+
+    document.getElementById(
+        "workoutScreen"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "finishedScreen"
+    ).style.display =
+        "block";
+}
+
+
+/* =========================================
+   START APP
+========================================= */
+
+showToday();
+
+</script>
+
+
+</body>
+
+</html>
